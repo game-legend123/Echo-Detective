@@ -1,5 +1,4 @@
-// use server'
-
+'use server';
 /**
  * @fileOverview Flow to generate a list of fake messages and one real message.
  *
@@ -17,7 +16,7 @@ const GenerateFakeMessagesInputSchema = z.object({
 export type GenerateFakeMessagesInput = z.infer<typeof GenerateFakeMessagesInputSchema>;
 
 const GenerateFakeMessagesOutputSchema = z.object({
-  messages: z.array(z.string()).describe('An array containing four fake messages and one real message.'),
+  messages: z.array(z.string()).describe('An array containing four fake messages and the one real message, in a random order.'),
 });
 export type GenerateFakeMessagesOutput = z.infer<typeof GenerateFakeMessagesOutputSchema>;
 
@@ -29,11 +28,15 @@ const generateFakeMessagesPrompt = ai.definePrompt({
   name: 'generateFakeMessagesPrompt',
   input: {schema: GenerateFakeMessagesInputSchema},
   output: {schema: GenerateFakeMessagesOutputSchema},
-  prompt: `You are an AI game master, adept at creating believable fake messages.
+  prompt: `You are an AI game master, adept at creating believable fake messages in Vietnamese.
 
-  Given a real message, your task is to create four fake messages that are similar in style and tone but are entirely fabricated. Return the messages as a list.
-  The real message must also be included in the list of fake messages. The real message should not be identified within the list.  
-  Real Message: {{{realMessage}}}
+  Given a real Vietnamese message, your task is to create four fake Vietnamese messages that are similar in style, tone, and topic, but are entirely fabricated.
+  The goal is to make the fake messages plausible enough to trick a human player.
+  
+  Return a list of 5 messages in total: the 4 fake messages you created and the original real message.
+  The order of messages in the returned array should be random.
+  
+  Real Message (in Vietnamese): {{{realMessage}}}
   `,
 });
 
