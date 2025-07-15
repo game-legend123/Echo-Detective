@@ -23,6 +23,19 @@ import { useToast } from "@/hooks/use-toast";
 
 type GameState = "idle" | "loading" | "playing" | "answered" | "error";
 
+const wittyTaunts = [
+  "Trời, tin dzậy mà cũng tin được!",
+  "Bạn và sự thật là 2 đường thẳng song song.",
+  "AI đã chiến thắng. Loài người lại thua rồi.",
+  "IQ vô cực của bạn chắc để làm cảnh à?",
+  "Nhẹ dạ cả tin quá bạn ơi!",
+  "Sai bét. Có cần em AI dạy lại không?",
+  "Thôi xong, lại mất 300 điểm oan uổng.",
+  "Bấm nhầm hay là không biết thật vậy?",
+  "Có vẻ như AI đã lừa bạn một cú ngoạn mục.",
+  "Tặng bạn một vé về trường học lại bài nhé.",
+];
+
 /**
  * Shuffles an array in place and returns a new shuffled array.
  * @template T
@@ -164,9 +177,15 @@ export function GameClient() {
     } else {
       setScore(score - 300);
       setCombo(0);
+      const randomTaunt = wittyTaunts[Math.floor(Math.random() * wittyTaunts.length)];
       toast({
         title: "❌ Sai rồi!",
-        description: "-300 Điểm Nhẹ Dạ",
+        description: (
+          <div>
+            <p>{randomTaunt}</p>
+            <p className="font-bold opacity-80 mt-1">-300 Điểm Nhẹ Dạ</p>
+          </div>
+        ),
         variant: "destructive",
       });
     }
