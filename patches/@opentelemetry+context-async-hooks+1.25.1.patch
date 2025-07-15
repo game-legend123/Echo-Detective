@@ -1,0 +1,40 @@
+diff --git a/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js b/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js
+index 92a731b..468a25c 100644
+--- a/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js
++++ b/node_modules/@opentelemetry/context-async-hooks/build/src/AsyncHooksContextManager.js
+@@ -17,7 +17,13 @@
+  */
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.AsyncHooksContextManager = void 0;
+-const asyncHooks = require("async_hooks");
++
++let asyncHooks;
++try {
++  asyncHooks = require('async_hooks');
++} catch (e) {
++  // ignore
++}
+ const AbstractAsyncHooksContextManager_1 = require("./AbstractAsyncHooksContextManager");
+ class AsyncHooksContextManager extends AbstractAsyncHooksContextManager_1.AbstractAsyncHooksContextManager {
+     constructor() {
+diff --git a/node_modules/@opentelemetry/context-async-hooks/build/esm/AsyncHooksContextManager.js b/node_modules/@opentelemetry/context-async-hooks/build/esm/AsyncHooksContextManager.js
+index c8d3568..71b3026 100644
+--- a/node_modules/@opentelemetry/context-async-hooks/build/esm/AsyncHooksContextManager.js
++++ b/node_modules/@opentelemetry/context-async-hooks/build/esm/AsyncHooksContextManager.js
+@@ -15,7 +15,12 @@
+  * KIND, either express or implied.  See the License for the
+  * specific language governing permissions and limitations
+  * under the License.
+- */
+-import * as asyncHooks from 'async_hooks';
++ */import { AbstractAsyncHooksContextManager } from './AbstractAsyncHooksContextManager';
++let asyncHooks;
++try {
++    asyncHooks = require('async_hooks');
++}
++catch (e) {
++    // ignore
++}
+ export class AsyncHooksContextManager extends AbstractAsyncHooksContextManager {
+     constructor() {
+         super();
